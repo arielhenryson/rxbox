@@ -1,0 +1,51 @@
+{
+  "name": "rxbox",
+  "version": "0.5.8",
+  "description": "state container for Angular",
+  "scripts": {
+    "test": "karma start",
+    "lint": "tslint 'src/**/*.ts'",
+    "build": "npm test && tsc && npm publish"
+  },
+  "author": "Ariel Henryson",
+  "license": "MIT",
+  "dependencies": {
+    "lodash": "^4.17.11",
+    "moment-mini": "^2.22.1",
+    "rxjs": "^6.x"
+  },
+  "keywords": [
+    "store",
+    "angular store",
+    "angular 2 store",
+    "state",
+    "immutable"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/arielhenryson/rxbox.git"
+  },
+  "main": "index.js",
+  "typings": "index.d.ts",
+  "devDependencies": {
+    "@types/chai": "^3.4.34",
+    "@types/es6-promise": "0.0.32",
+    "@types/jasmine": "^3.3.12",
+    "@types/lodash": "^4.14.123",
+    "awesome-typescript-loader": "^3.5.0",
+    "chai": "^3.5.0",
+    "jasmine-core": "^2.5.2",
+    "karma": "^2.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.1",
+    "karma-coverage-istanbul-reporter": "^1.4.1",
+    "karma-jasmine": "^1.1.1",
+    "karma-jasmine-html-reporter": "^0.2.2",
+    "karma-mocha-reporter": "^2.2.5",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^2.0.9",
+    "tslint": "^5.12.1",
+    "typescript": "3.4.3",
+    "webpack": "^3.11.0"
+  }
+}

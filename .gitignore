@@ -1,0 +1,17 @@
+
+.idea
+
+# Node generated files
+node_modules
+package-lock.json
+npm-debug.log
+
+# OS generated files
+coverage
+Thumbs.db
+.DS_Store
+# Ignored files
+*.js
+!karma.conf.js
+*.map
+*.d.ts
