@@ -50,7 +50,7 @@ assignState push data to the store
 *Note if you have multiple subscribers open, and you are 'assignState'
 inside one of the callback, it is possible that you will prevent one of the subscribers
 to run. Because the 'watch' and 'select' methods run only if the key that you subscribe to is
-in the last chance of the store. Therefore if you are not sure, it is best to use 'assignStateAsync' over  'assignState'
+in the last change of the store. Therefore if you are not sure, it is best to use 'assignStateAsync' over  'assignState'
 
 ```javascript
  this.store.assignState({ foo: bar })
