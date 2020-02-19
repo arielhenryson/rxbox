@@ -304,6 +304,17 @@ export class RXBox<stateSchema = any> {
     }
 
 
+    assignStateAsync(stateChanges: Partial<stateSchema>): Promise<void> {
+        return new Promise(resolve => {
+            setTimeout(() => {
+                this.assignState(stateChanges)
+
+                resolve()
+            })
+        })
+    }
+
+
     getStoreFromSessionStorage() {
         return stringifyDate.parse(sessionStorage.getItem(slotInStorage))
     }

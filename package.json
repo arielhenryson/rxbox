@@ -1,6 +1,6 @@
 {
   "name": "rxbox",
-  "version": "0.5.8",
+  "version": "0.6.0",
   "description": "state container for Angular",
   "scripts": {
     "test": "karma start",

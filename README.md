@@ -46,9 +46,22 @@ Now you can start interacting with the store from your component.
 ### API
 ## assignState(stateChanges)
 assignState push data to the store
+
+*Note if you have multiple subscribers open, and you are 'assignState'
+inside one of the callback, it is possible that you will prevent one of the subscribers
+to run. Because the 'watch' and 'select' methods run only if the key that you subscribe to is
+in the last chance of the store. Therefore if you are not sure, it is best to use 'assignStateAsync' over  'assignState'
+
 ```javascript
  this.store.assignState({ foo: bar })
 ```
+
+## assignStateAsync(stateChanges): Promise<void>
+assignStateAsync push data to the store only after all I/O events in the current snapshot are processed 
+```javascript
+ await this.store.assignStateAsync({ foo: bar })
+```
+
 ## clearState()
 clearState will completely remove the current state and will replace it with empty object
 ```javascript
