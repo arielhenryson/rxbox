@@ -18,5 +18,3 @@ RUN npm install
 
 
 CMD [ "npm", "run", "test" ]
-
-EXPOSE 80
