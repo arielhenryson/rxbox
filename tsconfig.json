@@ -8,9 +8,16 @@
     "experimentalDecorators": true,
     "removeComments": false,
     "noImplicitAny": false,
-    "declaration": true
+    "declaration": true,
+    "lib": [
+      "dom",
+      "es2015",
+      "scripthost",
+      "es2015.promise"
+    ]
   },
   "exclude": [
+    "tests",
     "node_modules"
   ]
 }

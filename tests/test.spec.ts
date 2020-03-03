@@ -1,19 +1,20 @@
 import { RXBox } from '../index'
 
-declare let describe
-declare let beforeAll
-declare let it
-declare let expect
-
-
 describe('RXBox', () => {
     let store
+    let subs = []
 
     beforeAll(() => {
         store = new RXBox()
         store.debug = true
         store.saveToSessionStorage = true
         store.saveToLocalStorage = true
+    })
+
+    afterEach(() => {
+        subs.forEach(sub => {
+            sub.unsubscribe()
+        })
     })
 
 
@@ -25,10 +26,12 @@ describe('RXBox', () => {
 
 
     it('Should assign value to foo and trigger the watch', done => {
-        store.select('foo').subscribe(val => {
+        const sub = store.select('foo').subscribe(val => {
             expect(val).toBe(1)
             done()
         })
+
+        subs.push(sub)
 
 
         store.assignState({ foo: 1 })
@@ -39,10 +42,12 @@ describe('RXBox', () => {
         store.assignState({ foo: 1 })
 
 
-        store.select('foo').subscribe(val => {
+        const sub = store.select('foo').subscribe(val => {
             expect(val).toBe(1)
             done()
         })
+
+        subs.push(sub)
     })
 
 
@@ -50,10 +55,12 @@ describe('RXBox', () => {
         store.assignState({ foo: 1 })
 
 
-        store.watch('foo').subscribe(() => {
+        const sub = store.watch('foo').subscribe(() => {
             expect(2).toBe(1) // should never run
             done()
         })
+
+        subs.push(sub)
 
         setTimeout(() => {
             done()
@@ -74,11 +81,12 @@ describe('RXBox', () => {
 
 
     it('Should assign foo2.bar (nested) value to testVal and trigger the nested watch', done => {
-        store.watch('foo2.bar').subscribe(res => {
+        const sub = store.watch('foo2.bar').subscribe(res => {
             expect(res).toBe('testVal')
             done()
         })
 
+        subs.push(sub)
 
         const foo2 = {
             bar: 'testVal'
@@ -90,7 +98,7 @@ describe('RXBox', () => {
 
     it('Should net trigger the watch after assign the same value', done => {
         let index = 0
-        store.watch('testKey1').subscribe(res => {
+        const sub = store.watch('testKey1').subscribe(res => {
             index++
 
             if (index > 1) {
@@ -99,6 +107,7 @@ describe('RXBox', () => {
             }
         })
 
+        subs.push(sub)
 
         store.assignState({
             testKey1: 'foo'
@@ -117,7 +126,7 @@ describe('RXBox', () => {
 
     it('Should trigger the watch multiples time after assign multiple times', done => {
         let index = 0
-        store.watch('testKey2').subscribe(res => {
+        const sub = store.watch('testKey2').subscribe(res => {
             index++
 
             if (index > 1) {
@@ -126,6 +135,7 @@ describe('RXBox', () => {
             }
         })
 
+        subs.push(sub)
 
         store.assignState({
             testKey2: 'foo1'
@@ -150,7 +160,11 @@ describe('RXBox', () => {
 
         const restoredStore = store.getStoreFromLocalStorage()
 
-        expect(dateVal.getTime()).toBe(restoredStore.dateVal.getTime())
+        expect(
+          dateVal.getTime()
+        ).toBe(
+          restoredStore.dateVal.getTime()
+        )
     })
 
 
@@ -164,6 +178,37 @@ describe('RXBox', () => {
 
         const restoredStore = store.getStoreFromSessionStorage()
 
-        expect(dateVal.getTime()).toBe(restoredStore.dateVal.getTime())
+        expect(
+          dateVal.getTime()
+        ).toBe(
+          restoredStore.dateVal.getTime()
+        )
+    })
+
+
+    it('Should run 2 subscribers while assign async state in the first one', () => {
+        store.clearState()
+
+        let counter = 0
+
+        store.select('foo123456').subscribe(() => {
+            store.assignStateAsync({
+                'someKey': 'foo'
+            })
+
+            counter++
+        })
+
+
+        store.select('foo123456').subscribe(() => {
+            counter++
+        })
+
+        store.assignState({
+            foo123456: 'foo123456'
+        })
+
+
+        expect(counter).toBe(2)
     })
 })
