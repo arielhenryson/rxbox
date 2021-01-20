@@ -1,3 +1,4 @@
+// @ts-ignore
 import * as jsonStringifySafe from 'json-stringify-safe'
 import * as moment from 'moment-mini'
 

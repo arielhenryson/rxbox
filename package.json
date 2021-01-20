@@ -1,6 +1,6 @@
 {
   "name": "rxbox",
-  "version": "0.6.2",
+  "version": "0.6.3",
   "description": "state container for Angular",
   "scripts": {
     "test": "tsc && jest",
@@ -9,18 +9,9 @@
   },
   "author": "Ariel Henryson",
   "license": "MIT",
-  "dependencies": {
-    "@babel/core": "^7.8.6",
-    "@babel/preset-env": "^7.8.6",
-    "babel-jest": "^25.1.0",
-    "lodash": "^4.17.11",
-    "moment-mini": "^2.22.1",
-    "rxjs": "^6.x"
-  },
   "keywords": [
     "store",
     "angular store",
-    "angular 2 store",
     "state",
     "immutable"
   ],
@@ -30,16 +21,25 @@
   },
   "main": "index.js",
   "typings": "index.d.ts",
+  "dependencies": {
+    "json-stringify-safe": "^5.0.1",
+    "lodash": "^4.17.11",
+    "moment-mini": "^2.22.1",
+    "rxjs": "^6.x"
+  },
   "devDependencies": {
+    "@babel/core": "^7.8.6",
+    "@babel/preset-env": "^7.8.6",
     "@types/chai": "^3.4.34",
     "@types/jasmine": "^3.3.12",
     "@types/lodash": "^4.14.123",
     "awesome-typescript-loader": "^3.5.0",
+    "babel-jest": "^25.1.0",
     "chai": "^3.5.0",
     "jasmine-core": "^2.5.2",
     "jest": "^25.1.0",
     "tslint": "^5.12.1",
-    "typescript": "3.4.3",
+    "typescript": "4.1.3",
     "webpack": "^3.11.0"
   }
 }

@@ -1,6 +1,6 @@
 import { Observable, BehaviorSubject } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'
-import * as _ from 'lodash'
+import { cloneDeep, get, isEqual, assign } from 'lodash'
 
 
 import { stringifyDate } from './stringifyDate'
@@ -123,7 +123,7 @@ export class RXBox<stateSchema = any> {
                         observer.next(state)
                     } else {
                         observer.next(
-                            _.cloneDeep(state)
+                            cloneDeep(state)
                         )
                     }
 
@@ -134,20 +134,20 @@ export class RXBox<stateSchema = any> {
                 // if we inside this catch meaning that the key to watch
                 // is not inside the last change so we can return
                 // without response to the subscribers
-                const isKeyInLastChange = _.get(this.lastChanges, key)
+                const isKeyInLastChange = get(this.lastChanges, key)
                 if (typeof isKeyInLastChange === 'undefined') return
 
-                const newValue = _.get(state, key)
+                const newValue = get(state, key)
                 const oldState = this.history[this.history.length - 1]
-                const oldValue = _.get(oldState, key)
-                const equals = _.isEqual(newValue, oldValue)
+                const oldValue = get(oldState, key)
+                const equals = isEqual(newValue, oldValue)
                 if (!equals) {
-                    const val = _.get(state, key)
+                    const val = get(state, key)
                     if (passByReference) {
                         observer.next(val)
                     } else {
                         observer.next(
-                            _.cloneDeep(
+                            cloneDeep(
                                 val
                             )
                         )
@@ -185,20 +185,20 @@ export class RXBox<stateSchema = any> {
                         observer.next(STATE)
                     } else {
                         observer.next(
-                            _.cloneDeep(STATE)
+                            cloneDeep(STATE)
                         )
                     }
 
                     skip = true
                 }
             } else { // get specific key
-                value = _.get(STATE, key)
+                value = get(STATE, key)
                 if (typeof value !== 'undefined') {
                     if (passByReference) {
                         observer.next(value)
                     } else {
                         observer.next(
-                            _.cloneDeep(value)
+                            cloneDeep(value)
                         )
                     }
 
@@ -210,7 +210,7 @@ export class RXBox<stateSchema = any> {
             const sub = this.changes.subscribe(state => {
                 // watch for all change (no key specified)
                 if (typeof key === 'undefined') {
-                    if (skip && _.isEqual(STATE, state)) {
+                    if (skip && isEqual(STATE, state)) {
                         skip = false
                         return
                     }
@@ -220,7 +220,7 @@ export class RXBox<stateSchema = any> {
                         observer.next(state)
                     } else {
                         observer.next(
-                            _.cloneDeep(state)
+                            cloneDeep(state)
                         )
                     }
 
@@ -232,26 +232,26 @@ export class RXBox<stateSchema = any> {
 
                 // is not inside the last change so we can return
                 // without response to the subscribers
-                const isKeyInLastChange = _.get(this.lastChanges, key)
+                const isKeyInLastChange = get(this.lastChanges, key)
                 if (typeof isKeyInLastChange === 'undefined') return
 
-                const newValue = _.get(state, key)
+                const newValue = get(state, key)
                 const oldState = this.history[this.history.length - 1]
-                const oldValue = _.get(oldState, key)
-                const equals = _.isEqual(newValue, oldValue)
+                const oldValue = get(oldState, key)
+                const equals = isEqual(newValue, oldValue)
                 if (!equals) {
-                    if (skip && _.isEqual(newValue, value)) {
+                    if (skip && isEqual(newValue, value)) {
                         skip = false
                         return
                     }
 
 
-                    const val = _.get(state, key)
+                    const val = get(state, key)
                     if (passByReference) {
                         observer.next(val)
                     } else {
                         observer.next(
-                            _.cloneDeep(val)
+                            cloneDeep(val)
                         )
                     }
 
@@ -272,7 +272,7 @@ export class RXBox<stateSchema = any> {
     getState(passByReference?): stateSchema {
         if (passByReference) return this.store.value
 
-        return _.cloneDeep(this.store.value)
+        return cloneDeep(this.store.value)
     }
 
 
@@ -287,7 +287,7 @@ export class RXBox<stateSchema = any> {
         if (this.debug) RXBox.preventFunctionsInKey(stateChanges)
 
 
-        const newState = _.assign({}, this.getState(), stateChanges)
+        const newState = assign({}, this.getState(), stateChanges)
 
         this.pushHistory()
         this.lastChanges = stateChanges
