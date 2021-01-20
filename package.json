@@ -1,6 +1,6 @@
 {
   "name": "rxbox",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "state container for Angular",
   "scripts": {
     "test": "tsc && jest",
@@ -23,7 +23,7 @@
   "typings": "index.d.ts",
   "dependencies": {
     "json-stringify-safe": "^5.0.1",
-    "lodash": "^4.17.11",
+    "lodash-es": "^4.17.20",
     "moment-mini": "^2.22.1",
     "rxjs": "^6.x"
   },

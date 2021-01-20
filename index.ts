@@ -1,6 +1,6 @@
 import { Observable, BehaviorSubject } from 'rxjs'
 import { distinctUntilChanged } from 'rxjs/operators'
-import { cloneDeep, get, isEqual, assign } from 'lodash'
+import { cloneDeep, get, isEqual, assign } from 'lodash-es'
 
 
 import { stringifyDate } from './stringifyDate'
